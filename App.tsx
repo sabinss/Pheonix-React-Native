@@ -11,31 +11,12 @@ import {
 } from 'react-native';
 import {FlexBox} from './src/course/FlexBox';
 import {MultipleChoiceQuestion} from './src/course/Project/MultipleChoiceQuestion';
+import {Dulingo} from './src/course/Project/Dulingo';
 
 function App(): JSX.Element {
   const name = 'Harry';
   return (
     <>
-      <View
-        style={{
-          backgroundColor: 'yellow',
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-          flex: 1,
-        }}>
-        <View
-          style={{
-            width: 100,
-            height: 100,
-            backgroundColor: 'red',
-          }}>
-          <Text>Box 1</Text>
-        </View>
-        <View style={{width: 100, height: 100, backgroundColor: 'green'}}>
-          <Text>Box 2</Text>
-        </View>
-      </View>
       {/* <Text style={{fontSize: 30}}>Good morning {name}</Text> */}
       {/* <ScrollView>
         <View style={styles.box}>
@@ -50,6 +31,7 @@ function App(): JSX.Element {
       {/* <Text>Hello world</Text> */}
       {/* <FlexBox />; */}
       {/* <MultipleChoiceQuestion /> */}
+      <Dulingo />
     </>
   );
 }
