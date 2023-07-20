@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import question from './../../../../assets/data/oneQuestionWithOption';
@@ -8,11 +8,11 @@ const CustomText = (props: any) => {
 };
 
 const ImageOption = (props: any) => {
-  const {name, isSelected = false, image, handlePress} = props;
+  const {name, isSelected = false, image, onPress} = props;
   return (
     <Pressable
       onPress={() => {
-        handlePress(name);
+        onPress();
       }}
       style={[
         styles.optionContainer,
@@ -24,12 +24,8 @@ const ImageOption = (props: any) => {
   );
 };
 
-// useState, useEffect ,props
-
 export const Dulingo = () => {
-  const handlePress = (name: string) => {
-    console.warn(name);
-  };
+  const [selected, setSelected] = useState(null);
   return (
     <View style={styles.root}>
       <CustomText name="Which one is the Glass ?" />
@@ -39,13 +35,14 @@ export const Dulingo = () => {
             <ImageOption
               name={option.text}
               image={option.image}
-              handlePress={handlePress}
+              isSelected={option.id == selected?.id}
+              onPress={() => {
+                console.warn(option.id);
+                setSelected(option);
+              }}
             />
           );
         })}
-        {/* {question.options.map(option => {
-          return <ImageOption name={option.text} />;
-        })} */}
       </View>
     </View>
   );

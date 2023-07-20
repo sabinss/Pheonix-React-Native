@@ -8,13 +8,31 @@ import {
   Image,
   TextInput,
   SafeAreaView,
+  Pressable,
 } from 'react-native';
 import {FlexBox} from './src/course/FlexBox';
 import {MultipleChoiceQuestion} from './src/course/Project/MultipleChoiceQuestion';
 import {Dulingo} from './src/course/Project/Dulingo';
 
+const Box = (props: any) => {
+  return (
+    <Pressable
+      onPress={() => {
+        props.handleBox(props.number);
+      }}
+      style={{width: 100, height: 100, backgroundColor: 'green'}}>
+      <Text style={{color: 'white', fontSize: 20}}>{props.number}</Text>
+    </Pressable>
+  );
+};
+
 function App(): JSX.Element {
   const name = 'Harry';
+
+  const handleBox = (number: any) => {
+    console.warn(number);
+  };
+
   return (
     <>
       {/* <Text style={{fontSize: 30}}>Good morning {name}</Text> */}
@@ -32,6 +50,9 @@ function App(): JSX.Element {
       {/* <FlexBox />; */}
       {/* <MultipleChoiceQuestion /> */}
       <Dulingo />
+      {/* {[1, 2, 3, 4].map(x => {
+        return <Box number={x} handleBox={handleBox} />;
+      })} */}
     </>
   );
 }
