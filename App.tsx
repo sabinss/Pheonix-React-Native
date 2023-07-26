@@ -13,6 +13,8 @@ import {
 import {FlexBox} from './src/course/FlexBox';
 import {MultipleChoiceQuestion} from './src/course/Project/MultipleChoiceQuestion';
 import {Dulingo} from './src/course/Project/Dulingo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {AppNavigator} from './src/course/navigation/AppNavigator';
 
 const Box = (props: any) => {
   return (
@@ -35,6 +37,8 @@ function App(): JSX.Element {
 
   return (
     <>
+      <AppNavigator />
+      {/* <AntDesign name="stepforward" /> */}
       {/* <Text style={{fontSize: 30}}>Good morning {name}</Text> */}
       {/* <ScrollView>
         <View style={styles.box}>
@@ -49,7 +53,7 @@ function App(): JSX.Element {
       {/* <Text>Hello world</Text> */}
       {/* <FlexBox />; */}
       {/* <MultipleChoiceQuestion /> */}
-      <Dulingo />
+      {/* <Dulingo /> */}
       {/* {[1, 2, 3, 4].map(x => {
         return <Box number={x} handleBox={handleBox} />;
       })} */}
