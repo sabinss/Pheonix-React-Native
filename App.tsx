@@ -15,6 +15,10 @@ import {MultipleChoiceQuestion} from './src/course/Project/MultipleChoiceQuestio
 import {Dulingo} from './src/course/Project/Dulingo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {AppNavigator} from './src/course/navigation/AppNavigator';
+import Counter from './src/course/CounterApp';
+
+import {Provider} from 'react-redux';
+import store from './src/course/store/configureStore';
 
 const Box = (props: any) => {
   return (
@@ -37,7 +41,10 @@ function App(): JSX.Element {
 
   return (
     <>
-      <AppNavigator />
+      <Provider store={store}>
+        <Counter />
+      </Provider>
+      {/* <AppNavigator /> */}
       {/* <AntDesign name="stepforward" /> */}
       {/* <Text style={{fontSize: 30}}>Good morning {name}</Text> */}
       {/* <ScrollView>
