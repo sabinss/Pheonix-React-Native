@@ -1,18 +1,19 @@
 import React, {useState} from 'react';
 
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
-import question from './../../../../assets/data/oneQuestionWithOption';
+import {View, Text, StyleSheet, Image, Pressable, Alert} from 'react-native';
+import questions from './../../../../assets/data/imageMultipleChoiceQuestion';
 
 const CustomText = (props: any) => {
   return <Text style={styles.textStyle}>{props.name}</Text>;
 };
 
 const ImageOption = (props: any) => {
-  const {name, isSelected = false, image, onPress} = props;
+  const {name, id, isSelected = false, image, handlePress} = props;
   return (
     <Pressable
+      key={id}
       onPress={() => {
-        onPress();
+        handlePress(name);
       }}
       style={[
         styles.optionContainer,
@@ -24,26 +25,96 @@ const ImageOption = (props: any) => {
   );
 };
 
+const CustomButton = ({title, onPress, disable}: any) => {
+  return (
+    <Pressable
+      disabled={disable}
+      onPress={onPress}
+      style={{
+        backgroundColor: disable ? 'grey' : 'green',
+        padding: 15,
+        borderRadius: 10,
+        margin: 10,
+      }}>
+      <Text
+        style={{
+          color: 'white',
+          textAlign: 'center',
+          fontSize: 22,
+          fontWeight: 'bold',
+        }}>
+        {title}
+      </Text>
+    </Pressable>
+  );
+};
+
+const ProgressBar = ({progress}: any) => {
+  return (
+    <View
+      style={{
+        backgroundColor: 'lightgrey',
+        height: 40,
+        width: '100%',
+        borderRadius: 20,
+      }}>
+      <View
+        style={{
+          width: `${progress * 100}%`,
+          backgroundColor: '#FAC800',
+          height: 40,
+          borderRadius: 20,
+        }}
+      />
+    </View>
+  );
+};
+
+// useState, useEffect ,props
+
 export const Dulingo = () => {
-  const [selected, setSelected] = useState(null);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<any>(null);
+
+  const handlePress = (option: any) => {
+    setSelectedOption(option);
+  };
   return (
     <View style={styles.root}>
-      <CustomText name="Which one is the Glass ?" />
+      <View>
+        <ProgressBar progress={questionIndex / questions.length} />
+      </View>
+      <CustomText name={questions[questionIndex].question} />
       <View style={styles.optionsContainer}>
-        {question.options.map(option => {
+        {questions[questionIndex].options.map(option => {
           return (
             <ImageOption
+              id={option.id}
               name={option.text}
               image={option.image}
-              isSelected={option.id == selected?.id}
-              onPress={() => {
-                console.warn(option.id);
-                setSelected(option);
-              }}
+              isSelected={selectedOption?.id == option.id}
+              handlePress={() => handlePress(option)}
             />
           );
         })}
+        {/* {question.options.map(option => {
+          return <ImageOption name={option.text} />;
+        })} */}
       </View>
+      <CustomButton
+        title="Check"
+        disable={selectedOption == null}
+        onPress={() => {
+          const index = questionIndex + 1;
+          if (index >= questions.length) {
+            // setQuestionIndex(() => index);
+            setQuestionIndex(0);
+            Alert.alert('Game over');
+          } else {
+            setQuestionIndex(index);
+          }
+        }}
+      />
     </View>
   );
 };
