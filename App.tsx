@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -9,10 +9,12 @@ import {
   TextInput,
   SafeAreaView,
   Pressable,
+  Button,
 } from 'react-native';
 import {FlexBox} from './src/course/FlexBox';
 import {MultipleChoiceQuestion} from './src/course/Project/MultipleChoiceQuestion';
 import {Dulingo} from './src/course/Project/Dulingo';
+import FlatListDemo from './src/course/FlatListDemo';
 
 const Box = (props: any) => {
   return (
@@ -27,6 +29,7 @@ const Box = (props: any) => {
 };
 
 function App(): JSX.Element {
+  const [counter, setCounter] = useState(0);
   const name = 'Harry';
 
   const handleBox = (number: any) => {
@@ -49,7 +52,24 @@ function App(): JSX.Element {
       {/* <Text>Hello world</Text> */}
       {/* <FlexBox />; */}
       {/* <MultipleChoiceQuestion /> */}
-      <Dulingo />
+      {/* <Dulingo /> */}
+      <Text style={{fontSize: 40}}>Count {counter}</Text>
+      <Button
+        title="increment"
+        onPress={() => {
+          setCounter(counter + 1);
+        }}
+      />
+      <Button
+        title="Decrement"
+        onPress={() => {
+          if (counter > 0) {
+            setCounter(counter - 1);
+          }
+        }}
+      />
+
+      {/* <FlatListDemo /> */}
       {/* {[1, 2, 3, 4].map(x => {
         return <Box number={x} handleBox={handleBox} />;
       })} */}

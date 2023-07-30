@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
-import question from './../../../../assets/data/oneQuestionWithOption';
+import {View, Text, StyleSheet, Image, Pressable, Alert} from 'react-native';
+import questions from './../../../../assets/data/imageMultipleChoiceQuestion';
 
 const CustomText = (props: any) => {
   return <Text style={styles.textStyle}>{props.name}</Text>;
@@ -27,19 +27,25 @@ const ImageOption = (props: any) => {
 // useState, useEffect ,props
 
 export const Dulingo = () => {
+  const [questionIndex, setCurrentIndex] = useState(1);
+  const [selectedOption, setSelectedOption] = useState<any>(null);
+
   const handlePress = (name: string) => {
     console.warn(name);
   };
   return (
     <View style={styles.root}>
-      <CustomText name="Which one is the Glass ?" />
+      <CustomText name={questions[questionIndex].question} />
       <View style={styles.optionsContainer}>
-        {question.options.map(option => {
+        {questions[questionIndex].options.map(option => {
           return (
             <ImageOption
               name={option.text}
               image={option.image}
-              handlePress={handlePress}
+              handlePress={() => {
+                setSelectedOption(option);
+              }}
+              isSelected={option.id === selectedOption?.id}
             />
           );
         })}
@@ -47,6 +53,23 @@ export const Dulingo = () => {
           return <ImageOption name={option.text} />;
         })} */}
       </View>
+
+      <Pressable
+        disabled={selectedOption == null}
+        onPress={() => {
+          setCurrentIndex(questionIndex + 1);
+          questionIndex + 1;
+        }}
+        style={{
+          backgroundColor: selectedOption == null ? 'grey' : 'green',
+          padding: 10,
+          marginTop: 10,
+          borderRadius: 20,
+        }}>
+        <Text style={{color: 'white', textAlign: 'center', fontSize: 23}}>
+          Check
+        </Text>
+      </Pressable>
     </View>
   );
 };
